@@ -34,8 +34,14 @@ public class UserController {
 		return userService.findById(id);
 	}
 	
-	@GetMapping("/all")
-	public Map<String, User> all() {
-		return userService.findAll();
+	@GetMapping("/all/{key}")
+	public Map<String, User> all(@PathVariable("key") final String key) {
+		return userService.findAll(key);
+	}
+	
+	@GetMapping("/delete/{id}")
+	public Map<String, User> delete(@PathVariable("id") final String id) {
+		userService.delete(id);
+		return userService.findAll("USER");
 	}
 }

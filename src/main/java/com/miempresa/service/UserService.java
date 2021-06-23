@@ -1,6 +1,7 @@
 package com.miempresa.service;
 
 import java.util.Map;
+import java.util.concurrent.TimeUnit;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.HashOperations;
@@ -19,6 +20,8 @@ public class UserService implements IUserService{
 	private HashOperations hashOperations;
 	
 
+	
+
 	public UserService(RedisTemplate<String, User> redisTemplate) {
 		super();
 		this.redisTemplate = redisTemplate;
@@ -27,17 +30,18 @@ public class UserService implements IUserService{
 
 	@Override
 	public void save(User user) {
-		hashOperations.put("USER", user.getId(), user);
+		hashOperations.put("USER"+user.getId(), user.getId(), user);
+		redisTemplate.expire("USER"+user.getId(),5000,TimeUnit.MILLISECONDS);
 	}
 
 	@Override
-	public Map<String, User> findAll() {
-		return hashOperations.entries("USER");
+	public Map<String, User> findAll(String key) {
+		return hashOperations.entries(key);
 	}
 
 	@Override
 	public User findById(String id) {
-		return (User)hashOperations.get("USER", id);
+		return (User)hashOperations.get("USER"+id, id);
 	}
 
 	@Override
@@ -47,7 +51,7 @@ public class UserService implements IUserService{
 	}
 
 	@Override
-	public void delte(String id) {
+	public void delete(String id) {
 		hashOperations.delete("USER", id);
 		
 	}
