@@ -1,0 +1,48 @@
+<html xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <link rel="stylesheet" 
+              href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" 
+              integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" 
+              crossorigin="anonymous">
+    </head>
+    <body>
+    <div class="card" style="padding: 30px 0px 0px 30px;">
+        <h4 class="display-8">Listado de Alumnos</h4>
+        <form method=POST action="#">
+            <input type=HIDDEN name=accion value="NuevoEliminarAlumno">
+            <input type=submit name=boton class="btn btn-primary" value="Nuevo Registro">
+            <input type=submit name=boton class="btn btn-dark" value="Eliminar Registros">
+            <table class="table table-striped table-hover">
+            <thead>
+            <tr>
+            <th scope="col">#</th>
+            <th scope="col">Codigo</th>
+            <th scope="col">Nombre</th>
+            <th scope="col">Direccion</th>
+            <th scope="col">Email</th>
+            <th scope="col">Telefono</th>
+            <th scope="col">Celular</th>
+            <th scope="col">Sexo</th>
+            <th scope="col">Fec-Nac</th>
+            <th scope="col">Estado</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="student: ${students}">
+            <td><input type=checkbox name='xcod' th:value='${student.id}'/></td>
+            <td th:text='${student.id}'></td>
+            <td ><a href="#" th:text='${student.name}'></a></td>
+            <td th:text='${student.address}'></td>
+            <td th:text='${student.email}'></td>
+            <td th:text='${student.telephone}'></td>
+            <td th:text='${student.cellphone}'></td>
+            <td th:text='${student.gender}'></td>
+            <td th:text='${student.birth_day}'></td>
+            <td th:text='${student.state}'></td>
+            </tr>
+            </tbody>
+            </table>
+        </form>
+    </div>
+    </body>
+</html>

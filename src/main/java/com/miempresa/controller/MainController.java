@@ -37,6 +37,6 @@ public class MainController {
 	public String listStudents(Model model) {
 		List<Student> students = studentService.list();
 		model.addAttribute("students", students);
-		return "students";
+		return "listStudents";
 	}
 }
